@@ -8,7 +8,7 @@ var lienzo_instancia: Control
 func _enter_tree() -> void:
 	lienzo_instancia = CANVAS_ESCENA.instantiate()
 	
-	# Forzamos que la interfaz se expanda al máximo espacio disponible del editor
+
 	lienzo_instancia.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lienzo_instancia.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	
@@ -25,10 +25,10 @@ func _has_main_screen() -> bool:
 func _get_plugin_name() -> String:
 	return "Visual Script"
 
-# OBLIGATORIO: Controla la visibilidad real de la ventana dentro de Godot
+
 func _make_visible(visible: bool) -> void:
 	if lienzo_instancia:
 		lienzo_instancia.visible = visible
 		if visible:
-			# Forzamos una actualización visual para que no se quede congelado en negro
+	
 			lienzo_instancia.queue_redraw()

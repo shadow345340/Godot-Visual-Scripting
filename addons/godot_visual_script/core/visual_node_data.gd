@@ -8,7 +8,7 @@ enum TipoPuerto { EJECUCION, ENTERO, FLOTANTE, STRING, BOOLEANO, VECTOR }
 @export var categoria: String = "Matemáticas"
 @export var color_titulo: Color = Color.DARK_SLATE_GRAY
 
-# Estructuras para definir las entradas y salidas en el inspector de Godot
+
 @export var entradas: Array[Dictionary] = [
 	{"nombre": "Ejecutar", "tipo": TipoPuerto.EJECUCION},
 	{"nombre": "A", "tipo": TipoPuerto.ENTERO}

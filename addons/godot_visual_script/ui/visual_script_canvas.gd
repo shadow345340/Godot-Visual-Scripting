@@ -86,11 +86,11 @@ func _on_nodo_creado_desde_menu(datos: VisualNodeData, posicion: Vector2) -> voi
 	if nuevo_nodo_visual.has_method("reconstruir_nodo"):
 		nuevo_nodo_visual.reconstruir_nodo()
 
-# CORRECCIÓN DEFINITIVA: Declaramos los arrays usando el tipo estricto Array[Dictionary]
+
 func _generar_nodos_de_prueba() -> void:
 	base_datos_nodos.clear()
 	
-	# Forzar tipo exacto Array[Dictionary] exigido por VisualNodeData en Godot 4.7
+
 	var in_suma: Array[Dictionary] = []
 	in_suma.append({"nombre": "A", "tipo": 1})
 	in_suma.append({"nombre": "B", "tipo": 1})

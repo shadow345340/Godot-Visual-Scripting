@@ -25,7 +25,7 @@ func _ready() -> void:
 func _on_about_to_popup() -> void:
 	buscador.text = ""
 	filtrar_catalogo("")
-	# Espera un frame antes de darle el foco al buscador para evitar fallos de input en el editor
+
 	await get_tree().process_frame
 	if buscador:
 		buscador.grab_focus()
