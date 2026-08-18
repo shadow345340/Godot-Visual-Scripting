@@ -6,15 +6,8 @@ enum TipoPuerto { EJECUCION, ENTERO, FLOTANTE, STRING, BOOLEANO, VECTOR }
 
 @export var nombre_nodo: String = "Nuevo Nodo"
 @export var categoria: String = "Matemáticas"
-@export var color_titulo: Color = Color.DARK_SLATE_GRAY
+@export var color_titulo: Color = Color(0.2, 0.25, 0.3)
 
-
-@export var entradas: Array[Dictionary] = [
-	{"nombre": "Ejecutar", "tipo": TipoPuerto.EJECUCION},
-	{"nombre": "A", "tipo": TipoPuerto.ENTERO}
-]
-
-@export var salidas: Array[Dictionary] = [
-	{"nombre": "Luego", "tipo": TipoPuerto.EJECUCION},
-	{"nombre": "Resultado", "tipo": TipoPuerto.ENTERO}
-]
+# Definimos las variables listas para ser editadas individualmente desde el Inspector de Godot
+@export var entradas: Array[Dictionary] = []
+@export var salidas: Array[Dictionary] = []

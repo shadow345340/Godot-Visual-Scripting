@@ -2,67 +2,65 @@
 extends PopupPanel
 class_name SearchMenu
 
-signal nodo_seleccionado(datos: VisualNodeData, posicion_mouse: Vector2)
+signal node_selected(class_instance: Object, canvas_mouse_position: Vector2)
 
-@onready var buscador: LineEdit = $VBoxContainer/Buscador
-@onready var lista_nodos: ItemList = $VBoxContainer/ListaNodos
+@onready var search_box: LineEdit = $VBoxContainer/Buscador
+@onready var node_list: ItemList = $VBoxContainer/ListaNodos
 
-var catalogo_completo: Array[VisualNodeData] = []
-var catalogo_filtrado: Array[VisualNodeData] = []
-var posicion_click_lienzo: Vector2 = Vector2.ZERO
+var complete_catalog: Array[Object] = []
+var filtered_catalog: Array[Object] = []
+var canvas_click_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	size = Vector2i(280, 350)
 	
-	if not buscador.text_changed.is_connected(_on_texto_busqueda_cambiado):
-		buscador.text_changed.connect(_on_texto_busqueda_cambiado)
-	if not lista_nodos.item_activated.is_connected(_on_nodo_doble_click):
-		lista_nodos.item_activated.connect(_on_nodo_doble_click)
-	
+	if not search_box.text_changed.is_connected(_on_search_text_changed):
+		search_box.text_changed.connect(_on_search_text_changed)
+	if not node_list.item_activated.is_connected(_on_node_double_clicked):
+		node_list.item_activated.connect(_on_node_double_clicked)
 	if not about_to_popup.is_connected(_on_about_to_popup):
 		about_to_popup.connect(_on_about_to_popup)
 
 func _on_about_to_popup() -> void:
-	buscador.text = ""
-	filtrar_catalogo("")
-
+	search_box.text = ""
+	filter_catalog("")
 	await get_tree().process_frame
-	if buscador:
-		buscador.grab_focus()
+	if search_box:
+		search_box.grab_focus()
 
-func inicializar_catalogo(nuevos_nodos: Array[VisualNodeData]) -> void:
-	catalogo_completo = nuevos_nodos
-	filtrar_catalogo("")
+func initialize_catalog(new_classes: Array[Object]) -> void:
+	complete_catalog = new_classes
+	filter_catalog("")
 
-func _on_texto_busqueda_cambiado(nuevo_texto: String) -> void:
-	filtrar_catalogo(nuevo_texto)
+func _on_search_text_changed(new_text: String) -> void:
+	filter_catalog(new_text)
 
-func filtrar_catalogo(filtro: String) -> void:
-	if not is_inside_tree() or lista_nodos == null:
+func filter_catalog(filter: String) -> void:
+	if not is_inside_tree() or node_list == null:
 		return
 		
-	lista_nodos.clear()
-	catalogo_filtrado.clear()
+	node_list.clear()
+	filtered_catalog.clear()
 	
-	var filtro_min = filtro.to_lower().strip_edges()
+	var filter_min = filter.to_lower().strip_edges()
 	
-	for nodo in catalogo_completo:
-		if nodo == null:
+	for node in complete_catalog:
+		if node == null:
 			continue
 			
-		var nombre_min = nodo.nombre_nodo.to_lower()
-		var cat_min = nodo.categoria.to_lower()
+		var name_min = node.get_node_name().to_lower()
+		var cat_min = node.get_category().to_lower()
 		
-		if filtro_min == "" or filtro_min in nombre_min or filtro_min in cat_min:
-			catalogo_filtrado.append(nodo)
-			var texto_final = "[%s] %s" % [nodo.categoria, nodo.nombre_nodo]
-			var indice = lista_nodos.add_item(texto_final)
-			lista_nodos.set_item_custom_fg_color(indice, nodo.color_titulo.lightened(0.5))
+		if filter_min == "" or filter_min in name_min or filter_min in cat_min:
+			filtered_catalog.append(node)
+			var display_text = "[%s] %s" % [node.get_category(), node.get_node_name()]
+			var index = node_list.add_item(display_text)
+			node_list.set_item_custom_fg_color(index, node.get_header_color().lightened(0.5))
 			
-	if lista_nodos.item_count == 0:
-		lista_nodos.add_item("No se encontraron nodos...")
+	if node_list.item_count == 0:
+		node_list.add_item("No nodes found...")
 
-func _on_nodo_doble_click(index: int) -> void:
-	if index >= 0 and index < catalogo_filtrado.size():
-		nodo_seleccionado.emit(catalogo_filtrado[index], posicion_click_lienzo)
+func _on_node_double_clicked(index: int) -> void:
+	if index >= 0 and index < filtered_catalog.size():
+		node_selected.emit(filtered_catalog[index], canvas_click_position)
 		hide()
