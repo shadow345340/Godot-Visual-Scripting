@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dx8m6rqv0lcrl"]
+
+[ext_resource type="Script" uid="uid://d4i5rg046qciy" path="res://addons/godot_visual_script/ui/visual_script_canvas.gd" id="1_r82gy"]
+
+[node name="VisualScriptCanvas" type="Control" unique_id=2117699266]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_r82gy")
+
+[node name="GraphEdit" type="GraphEdit" parent="." unique_id=962118467]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+connection_lines_curvature = 7.0
+connection_lines_thickness = 5.0
