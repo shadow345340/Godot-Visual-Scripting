@@ -2,27 +2,24 @@
 extends Node
 class_name VisualNodeStateMachine
 
-signal estado_cambiado(estado_antiguo: String, estado_nuevo: String)
+signal state_changed(old_state: String, new_state: String)
 
-var estado_actual: String = "Idle"
-@onready var nodo_visual: GraphNode = get_parent()
+var current_state: String = "Idle"
+@onready var visual_node: GraphNode = get_parent()
 
-func cambiar_a(nuevo_estado: String) -> void:
-	var estado_antiguo = estado_actual
-	estado_actual = nuevo_estado
+func change_to(new_state: String) -> void:
+	var old_state = current_state
+	current_state = new_state
 	
-
-	match nuevo_estado:
+	if not visual_node:
+		return
+		
+	match new_state:
 		"Idle":
-			nodo_visual.modulate = Color.WHITE
+			visual_node.selected = false
+		"Selected":
+			visual_node.selected = true
 		"Dragging":
+			visual_node.selected = true
 			
-			nodo_visual.modulate = Color(1, 1, 1, 0.7)
-		"Executing":
-			
-			nodo_visual.modulate = Color.GREEN_YELLOW
-		"Error":
-			
-			nodo_visual.modulate = Color.TOMATO
-			
-	estado_cambiado.emit(estado_antiguo, nuevo_estado)
+	state_changed.emit(old_state, new_state)

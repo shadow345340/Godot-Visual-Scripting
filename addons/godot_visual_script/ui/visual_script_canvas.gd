@@ -6,36 +6,31 @@ extends Control
 const BASE_NODE_SCENE = preload("res://addons/godot_visual_script/nodes/base_visual_node.tscn")
 const SEARCH_MENU_SCENE = preload("res://addons/godot_visual_script/ui/search_menu.tscn")
 
+# Precalentamos los scripts modulares para evitar errores de compilacion en el editor
+const StyleScript = preload("res://addons/godot_visual_script/core/visual_node_style.gd")
+const FactoryScript = preload("res://addons/godot_visual_script/core/visual_node_factory.gd")
+const BridgeScript = preload("res://addons/godot_visual_script/core/visual_signal_bridge.gd")
+const CatalogScript = preload("res://addons/godot_visual_script/core/visual_node_catalog.gd")
+
 var search_menu: SearchMenu
-var node_class_database: Array[Object] = []
+var signal_bridge: RefCounted
+var node_catalog: RefCounted
 
 func _ready() -> void:
 	anchor_right = 1.0
 	anchor_bottom = 1.0
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
+	mouse_filter = Control.MOUSE_FILTER_PASS
 	
 	if graph_edit:
-		graph_edit.anchor_right = 1.0
-		graph_edit.anchor_bottom = 1.0
-		graph_edit.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		graph_edit.size_flags_vertical = Control.SIZE_EXPAND_FILL
-		graph_edit.mouse_filter = Control.MOUSE_FILTER_STOP
-		graph_edit.set("theme_override_colors/grid_major", Color(1, 1, 1, 0.12))
-		graph_edit.set("theme_override_colors/grid_minor", Color(1, 1, 1, 0.04))
+		StyleScript.setup_canvas_theme(graph_edit)
 		
-		if graph_edit.connection_request.is_connected(_on_connection_request): graph_edit.connection_request.disconnect(_on_connection_request)
-		if graph_edit.disconnection_request.is_connected(_on_disconnection_request): graph_edit.disconnection_request.disconnect(_on_disconnection_request)
-		if graph_edit.delete_nodes_request.is_connected(_on_delete_nodes_request): graph_edit.delete_nodes_request.disconnect(_on_delete_nodes_request)
-		if graph_edit.popup_request.is_connected(_on_canvas_right_click): graph_edit.popup_request.disconnect(_on_canvas_right_click)
+		signal_bridge = BridgeScript.new(graph_edit, self)
+		signal_bridge.call("connect_signals")
 		
-		graph_edit.connection_request.connect(_on_connection_request)
-		graph_edit.disconnection_request.connect(_on_disconnection_request)
-		graph_edit.delete_nodes_request.connect(_on_delete_nodes_request)
-		graph_edit.popup_request.connect(_on_canvas_right_click)
-		
-	mouse_filter = Control.MOUSE_FILTER_PASS
-	_generate_hardcoded_classes()
+		node_catalog = CatalogScript.new()
+		node_catalog.call("load_components")
 
 func _ensure_search_menu_exists() -> void:
 	if search_menu == null:
@@ -44,36 +39,20 @@ func _ensure_search_menu_exists() -> void:
 		search_menu.node_selected.connect(_on_node_created_from_menu)
 
 func _on_canvas_right_click(screen_position: Vector2) -> void:
+	if not graph_edit: 
+		return
 	_ensure_search_menu_exists()
 	
 	var canvas_position = (screen_position + graph_edit.scroll_offset) / graph_edit.zoom
-	if search_menu:
-		search_menu.canvas_click_position = canvas_position
-		search_menu.initialize_catalog(node_class_database)
-		
-		var global_mouse = get_viewport().get_mouse_position()
-		var final_position = Vector2(get_window().position) + global_mouse
-		search_menu.position = Vector2i(final_position)
-		search_menu.popup()
+	search_menu.canvas_click_position = canvas_position
+	search_menu.initialize_catalog(node_catalog.call("get_database"))
+	
+	var global_mouse = get_viewport().get_mouse_position()
+	search_menu.position = Vector2i(Vector2(get_window().position) + global_mouse)
+	search_menu.popup()
 
 func _on_node_created_from_menu(class_instance: Object, position: Vector2) -> void:
-	if not graph_edit:
-		return
-	var new_visual_node = BASE_NODE_SCENE.instantiate()
-	new_visual_node.position_offset = position
-	graph_edit.add_child(new_visual_node)
-	new_visual_node.initialize_with_class(class_instance)
-
-func _generate_hardcoded_classes() -> void:
-	node_class_database.clear()
-	
-	var add_script = load("res://addons/godot_visual_script/nodes/components/node_class_add.gd")
-	var if_script = load("res://addons/godot_visual_script/nodes/components/node_class_if.gd")
-	
-	if add_script:
-		node_class_database.append(add_script.new())
-	if if_script:
-		node_class_database.append(if_script.new())
+	FactoryScript.spawn_node(BASE_NODE_SCENE, class_instance, position, graph_edit)
 
 func _on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
 	graph_edit.connect_node(from_node, from_port, to_node, to_port)

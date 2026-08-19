@@ -4,7 +4,7 @@
 
 [node name="SearchMenu" type="PopupPanel" unique_id=929547315]
 oversampling_override = 1.0
-size = Vector2i(200, 200)
+size = Vector2i(280, 350)
 visible = true
 script = ExtResource("1_fd0ia")
 
@@ -23,6 +23,7 @@ grow_vertical = 2
 layout_mode = 2
 placeholder_text = "Buscar nodo..."
 
-[node name="ListaNodos" type="ItemList" parent="VBoxContainer" unique_id=540433113]
+[node name="NodeTree" type="Tree" parent="VBoxContainer" unique_id=1242378732]
 layout_mode = 2
 size_flags_vertical = 3
+hide_root = true

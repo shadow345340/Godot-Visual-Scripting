@@ -2,10 +2,10 @@
 extends NodeDefinition
 
 func get_node_name() -> String:
-	return "Branch (If)"
+	return "Branch"
 
 func get_category() -> String:
-	return "Flow"
+	return "Conditionals"
 
 func get_header_color() -> Color:
 	return Color(0.5, 0.15, 0.15)
@@ -21,3 +21,10 @@ func get_outputs() -> Array[Dictionary]:
 		{"name": "True", "type": VisualPortTypes.PortType.EXECUTION},
 		{"name": "False", "type": VisualPortTypes.PortType.EXECUTION}
 	]
+
+func execute(inputs: Dictionary, _context: Node) -> Dictionary:
+	var condition = inputs.get("Condition", false)
+	return {
+		"True": condition,
+		"False": not condition
+	}

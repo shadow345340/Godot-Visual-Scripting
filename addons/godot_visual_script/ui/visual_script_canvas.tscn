@@ -16,6 +16,8 @@ script = ExtResource("1_r82gy")
 
 [node name="GraphEdit" type="GraphEdit" parent="." unique_id=962118467]
 layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_top = 35.0
 offset_right = 1152.0
 offset_bottom = 648.0

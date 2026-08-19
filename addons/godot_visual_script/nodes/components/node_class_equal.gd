@@ -2,13 +2,13 @@
 extends NodeDefinition
 
 func get_node_name() -> String:
-	return "Add Values"
+	return "Equal (==)"
 
 func get_category() -> String:
-	return "Math"
+	return "Operators"
 
 func get_header_color() -> Color:
-	return Color(0.15, 0.4, 0.2)
+	return Color(0.15, 0.35, 0.4)
 
 func get_inputs() -> Array[Dictionary]:
 	return [
@@ -18,5 +18,10 @@ func get_inputs() -> Array[Dictionary]:
 
 func get_outputs() -> Array[Dictionary]:
 	return [
-		{"name": "Result", "type": VisualPortTypes.PortType.INT}
+		{"name": "Result", "type": VisualPortTypes.PortType.BOOL}
 	]
+
+func execute(inputs: Dictionary, _context: Node) -> Dictionary:
+	var val_a = inputs.get("A", 0)
+	var val_b = inputs.get("B", 0)
+	return {"Result": val_a == val_b}

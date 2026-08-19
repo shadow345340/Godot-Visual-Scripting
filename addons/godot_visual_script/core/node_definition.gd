@@ -16,3 +16,6 @@ func get_inputs() -> Array[Dictionary]:
 
 func get_outputs() -> Array[Dictionary]:
 	return []
+
+func execute(_inputs: Dictionary, _context: Node) -> Dictionary:
+	return {}

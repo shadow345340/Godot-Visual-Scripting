@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bqkxie71jl1xb"]
 
 [ext_resource type="Script" uid="uid://bkwi1150lu11p" path="res://addons/godot_visual_script/core/visual_node_state_machine.gd" id="1_b0dys"]
+[ext_resource type="Script" uid="uid://cykh56uyeu52j" path="res://addons/godot_visual_script/nodes/base_visual_node.gd" id="1_bvtwt"]
 
 [node name="BaseVisualNode" type="GraphNode" unique_id=141937095]
 custom_minimum_size = Vector2(250, 120)
@@ -8,6 +9,8 @@ offset_right = 9.0
 offset_bottom = 55.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+resizable = true
+script = ExtResource("1_bvtwt")
 
 [node name="StateMachine" type="Node" parent="." unique_id=85920969]
 script = ExtResource("1_b0dys")
