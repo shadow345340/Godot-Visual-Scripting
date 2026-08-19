@@ -1,0 +1,83 @@
+{
+	"connections": [
+		{
+			"from_node": "@GraphNode@39075",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "BaseVisualNode",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@39090",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39101",
+			"to_port": 1
+		},
+		{
+			"from_node": "@GraphNode@39064",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39046",
+			"to_port": 0
+		},
+		{
+			"from_node": "BaseVisualNode",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39046",
+			"to_port": 1
+		},
+		{
+			"from_node": "@GraphNode@39046",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39101",
+			"to_port": 0
+		}
+	],
+	"nodes": [
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_input_press.gd",
+			"custom_value": "",
+			"name": "BaseVisualNode",
+			"position_x": 323.009979248047,
+			"position_y": 93.0600051879883
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_on_process.gd",
+			"custom_value": "",
+			"name": "@GraphNode@39064",
+			"position_x": 434.329986572266,
+			"position_y": 413.710021972656
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_if.gd",
+			"custom_value": "",
+			"name": "@GraphNode@39046",
+			"position_x": 780.0,
+			"position_y": 280.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_text.gd",
+			"custom_value": "ui_right",
+			"name": "@GraphNode@39075",
+			"position_x": -60.0,
+			"position_y": 0.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_print.gd",
+			"custom_value": "",
+			"name": "@GraphNode@39101",
+			"position_x": 740.0,
+			"position_y": 540.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_text.gd",
+			"custom_value": "Moving Right!",
+			"name": "@GraphNode@39090",
+			"position_x": 60.0,
+			"position_y": 480.0
+		}
+	]
+}

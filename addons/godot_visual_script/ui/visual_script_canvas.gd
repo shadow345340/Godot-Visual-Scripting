@@ -6,7 +6,6 @@ extends Control
 const BASE_NODE_SCENE = preload("res://addons/godot_visual_script/nodes/base_visual_node.tscn")
 const SEARCH_MENU_SCENE = preload("res://addons/godot_visual_script/ui/search_menu.tscn")
 
-# Precalentamos los scripts modulares para evitar errores de compilacion en el editor
 const StyleScript = preload("res://addons/godot_visual_script/core/visual_node_style.gd")
 const FactoryScript = preload("res://addons/godot_visual_script/core/visual_node_factory.gd")
 const BridgeScript = preload("res://addons/godot_visual_script/core/visual_signal_bridge.gd")
@@ -31,6 +30,39 @@ func _ready() -> void:
 		
 		node_catalog = CatalogScript.new()
 		node_catalog.call("load_components")
+		
+		_create_execute_button()
+
+func _create_execute_button() -> void:
+	var menu_hbox = graph_edit.get_menu_hbox()
+	if menu_hbox.has_node("ExecuteScriptButton"): return
+	
+	# Boton de ejecucion en editor
+	var exec_btn = Button.new()
+	exec_btn.name = "ExecuteScriptButton"
+	exec_btn.text = "▶ Execute"
+	exec_btn.pressed.connect(_on_execute_pressed)
+	menu_hbox.add_child(exec_btn)
+	
+	# NUEVO: Boton para guardar el archivo fisico real en tu proyecto
+	var save_btn = Button.new()
+	save_btn.name = "SaveScriptButton"
+	save_btn.text = "💾 Save (.gvs)"
+	save_btn.pressed.connect(_on_save_pressed)
+	menu_hbox.add_child(save_btn)
+func _on_execute_pressed() -> void:
+	var graph_data = GraphSerializer.serialize_graph(graph_edit)
+	var interpreter = VisualScriptInterpreter.new(graph_data)
+	
+	var starting_node = ""
+	for node_info in graph_data.get("nodes", []):
+		var path = node_info.get("class_definition", "")
+		if "node_class_print.gd" in path or "node_class_if.gd" in path:
+			starting_node = node_info.get("name", "")
+			break
+			
+	if starting_node != "":
+		interpreter.run_script(starting_node, self)
 
 func _ensure_search_menu_exists() -> void:
 	if search_menu == null:
@@ -39,8 +71,7 @@ func _ensure_search_menu_exists() -> void:
 		search_menu.node_selected.connect(_on_node_created_from_menu)
 
 func _on_canvas_right_click(screen_position: Vector2) -> void:
-	if not graph_edit: 
-		return
+	if not graph_edit: return
 	_ensure_search_menu_exists()
 	
 	var canvas_position = (screen_position + graph_edit.scroll_offset) / graph_edit.zoom
@@ -68,3 +99,11 @@ func _on_delete_nodes_request(nodes_to_delete: Array[StringName]) -> void:
 				if connection["from_node"] == node_name or connection["to_node"] == node_name:
 					graph_edit.disconnect_node(connection["from_node"], connection["from_port"], connection["to_node"], connection["to_port"])
 			node.queue_free()
+
+func _on_save_pressed() -> void:
+	var data = GraphSerializer.serialize_graph(graph_edit)
+	var file = FileAccess.open("res://game_logic.gvs", FileAccess.WRITE)
+	if file:
+		file.store_string(JSON.stringify(data, "\t"))
+		file.close()
+		print("Script saved to res://game_logic.gvs")

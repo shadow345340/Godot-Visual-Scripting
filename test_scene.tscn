@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://divsolic3wgm0"]
+
+[ext_resource type="Texture2D" uid="uid://io77ywmccfk4" path="res://icon.svg" id="1_uhqqe"]
+[ext_resource type="Script" uid="uid://7bk60ubxbjk8" path="res://addons/godot_visual_script/core/visual_script_instance.gd" id="2_ia1lp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ia1lp"]
+size = Vector2(108, 107)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8opo"]
+size = Vector2(1267, 135)
+
+[node name="TestScene" type="Node2D" unique_id=77702904]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1832250598]
+position = Vector2(127, 208)
+
+[node name="Icon" type="Sprite2D" parent="CharacterBody2D" unique_id=1089654934]
+position = Vector2(49, -11)
+texture = ExtResource("1_uhqqe")
+
+[node name="VisualScriptInstance" type="Node" parent="CharacterBody2D" unique_id=1022431169]
+script = ExtResource("2_ia1lp")
+script_file = "res://game_logic.gvs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1939070585]
+position = Vector2(50, -9.5)
+shape = SubResource("RectangleShape2D_ia1lp")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1173580721]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D" unique_id=1953326024]
+position = Vector2(594, 586)
+scale = Vector2(10.28125, 1.234375)
+texture = ExtResource("1_uhqqe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1629223744]
+position = Vector2(588.5, 583.5)
+shape = SubResource("RectangleShape2D_y8opo")

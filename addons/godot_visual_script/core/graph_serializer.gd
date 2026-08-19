@@ -14,7 +14,8 @@ static func serialize_graph(graph_edit: GraphEdit) -> Dictionary:
 				"name": child.name,
 				"position_x": child.position_offset.x,
 				"position_y": child.position_offset.y,
-				"class_definition": child.class_definition
+				"class_definition": child.class_definition,
+				"custom_value": child.get_custom_widget_value()
 			}
 			save_data["nodes"].append(node_info)
 			
@@ -39,6 +40,11 @@ static func deserialize_graph(graph_edit: GraphEdit, save_data: Dictionary, node
 				var class_instance = class_script.new()
 				graph_edit.add_child(new_node)
 				new_node.initialize_with_class(class_instance)
+				
+				if new_node.has_node("CustomValueInput"):
+					var box = new_node.get_node("CustomValueInput") as LineEdit
+					if box:
+						box.text = info.get("custom_value", "")
 		else:
 			graph_edit.add_child(new_node)
 		
