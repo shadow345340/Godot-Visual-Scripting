@@ -1,4 +1,4 @@
-# Godot Visual Script 
+# Godot Visual Script
 
 A high-performance, data-driven, and class-componentized visual scripting system designed natively for **Godot Engine 4.x**. Built from scratch using structured GDScript architecture and finite state machines, eliminating the rigidity of flat resource frameworks.
 
@@ -34,6 +34,10 @@ res://addons/godot_visual_script/
 │   ├── visual_node_factory.gd
 │   ├── visual_node_style.gd
 │   ├── visual_signal_bridge.gd
+│   ├── visual_script_interpreter.gd
+│   ├── visual_script_instance.gd
+│   ├── visual_node_slot_renderer.gd
+│   ├── visual_node_widget_injector.gd
 │   └── visual_connection_validator.gd
 ├── ui/
 │   ├── visual_script_canvas.tscn
@@ -47,11 +51,18 @@ res://addons/godot_visual_script/
         ├── node_class_plus.gd
         ├── node_class_equal.gd
         ├── node_class_if.gd
-        └── node_class_impulse.gd
+        ├── node_class_impulse.gd
+        ├── node_class_print.gd
+        ├── node_class_text.gd
+        ├── node_class_whole_number.gd
+        ├── node_class_decimal_number.gd
+        ├── node_class_on_process.gd
+        └── node_class_input_press.gd
 ```
 
 ## Next Milestones
 
-*   [ ] Implement `VisualScriptInterpreter` for real-time engine runtime evaluation.
-*   [ ] Build an independent `Print` node to stream custom string outputs onto Godot's debug console output.
+*   [x] Implement `VisualScriptInterpreter` for real-time engine runtime evaluation.
+*   [x] Build an independent `Print` node to stream custom string outputs onto Godot's debug console output.
+*   [ ] Build a dynamic multi-tab layout system mirroring native scene management to open, rename, and delete `.gvs` files natively via Godot's FileSystem dock.
 *   [ ] Add drag-and-drop mouse actions from categories tree items directly into the graph canvas coordinates.
