@@ -9,3 +9,9 @@ static func inject_input_box(node: GraphNode, title_text: String) -> void:
 		input_box.placeholder_text = "Enter value..."
 		input_box.name = "CustomValueInput"
 		node.add_child(input_box)
+		
+	elif title_text == "Constant Bool":
+		var check_box = CheckButton.new()
+		check_box.text = "True / False"
+		check_box.name = "CustomValueInput"
+		node.add_child(check_box)

@@ -1,0 +1,167 @@
+{
+	"connections": [
+		{
+			"from_node": "@GraphNode@39973",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39962",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@39984",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39962",
+			"to_port": 1
+		},
+		{
+			"from_node": "@GraphNode@39984",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@39996",
+			"to_port": 1
+		},
+		{
+			"from_node": "@GraphNode@40020",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40013",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@40013",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40032",
+			"to_port": 1
+		},
+		{
+			"from_node": "@GraphNode@39973",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40032",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@40032",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40051",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@40062",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40051",
+			"to_port": 1
+		},
+		{
+			"from_node": "@GraphNode@40051",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40074",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@40032",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40086",
+			"to_port": 0
+		},
+		{
+			"from_node": "@GraphNode@40013",
+			"from_port": 0,
+			"keep_alive": false,
+			"to_node": "@GraphNode@40086",
+			"to_port": 1
+		}
+	],
+	"nodes": [
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_get_velocity.gd",
+			"custom_value": "",
+			"name": "BaseVisualNode",
+			"position_x": -160.0,
+			"position_y": -100.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_on_process.gd",
+			"custom_value": "",
+			"name": "@GraphNode@39973",
+			"position_x": 40.0,
+			"position_y": 20.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_print.gd",
+			"custom_value": "",
+			"name": "@GraphNode@39962",
+			"position_x": -80.0,
+			"position_y": 240.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_text.gd",
+			"custom_value": "gg",
+			"name": "@GraphNode@39984",
+			"position_x": -400.0,
+			"position_y": 160.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_input_press.gd",
+			"custom_value": "",
+			"name": "@GraphNode@40013",
+			"position_x": 300.0,
+			"position_y": 340.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_text.gd",
+			"custom_value": "ui_right",
+			"name": "@GraphNode@40020",
+			"position_x": -40.0,
+			"position_y": 460.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_if.gd",
+			"custom_value": "",
+			"name": "@GraphNode@40032",
+			"position_x": 580.955322265625,
+			"position_y": 266.984924316406
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_print.gd",
+			"custom_value": "",
+			"name": "@GraphNode@39996",
+			"position_x": 480.0,
+			"position_y": 40.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_print.gd",
+			"custom_value": "",
+			"name": "@GraphNode@40051",
+			"position_x": 920.0,
+			"position_y": 260.0
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_text.gd",
+			"custom_value": "drecha",
+			"name": "@GraphNode@40062",
+			"position_x": 869.725463867188,
+			"position_y": 409.869171142578
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_if.gd",
+			"custom_value": "",
+			"name": "@GraphNode@40074",
+			"position_x": 1194.64025878906,
+			"position_y": 278.744812011719
+		},
+		{
+			"class_definition": "res://addons/godot_visual_script/nodes/components/node_class_if.gd",
+			"custom_value": "",
+			"name": "@GraphNode@40086",
+			"position_x": 1212.07739257813,
+			"position_y": 432.054992675781
+		}
+	]
+}

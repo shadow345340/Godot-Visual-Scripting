@@ -8,6 +8,8 @@
 
 config_version=5
 
+dcl_extensions=[".gvs"]
+
 [application]
 
 config/name="Godot Visual Script Engine"

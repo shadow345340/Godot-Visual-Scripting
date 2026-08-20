@@ -5,10 +5,15 @@ const CANVAS_SCENE = preload("res://addons/godot_visual_script/ui/visual_script_
 var canvas_instance: Control
 
 func _enter_tree() -> void:
+	var main_screen = EditorInterface.get_editor_main_screen()
+	for child in main_screen.get_children():
+		if child.name == "VisualScriptCanvas" or "visual_script_canvas" in child.get_scene_file_path():
+			child.queue_free()
+			
 	canvas_instance = CANVAS_SCENE.instantiate()
 	canvas_instance.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	canvas_instance.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	EditorInterface.get_editor_main_screen().add_child(canvas_instance)
+	main_screen.add_child(canvas_instance)
 	_make_visible(false)
 
 func _exit_tree() -> void:

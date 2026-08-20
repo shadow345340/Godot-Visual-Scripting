@@ -14,16 +14,29 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_r82gy")
 
-[node name="GraphEdit" type="GraphEdit" parent="." unique_id=962118467]
-layout_mode = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2003147182]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 35.0
-offset_right = 1152.0
-offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScriptTabBar" type="TabBar" parent="VBoxContainer" unique_id=795313632]
+layout_mode = 2
+current_tab = 0
+tab_close_display_policy = 1
+tab_count = 2
+tab_0/title = "game_logic.gvs"
+tab_1/title = "player_movement.gvs"
+
+[node name="GraphEdit" type="GraphEdit" parent="VBoxContainer" unique_id=962118467]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_colors/grid_major = Color(1, 1, 1, 0.12)
 theme_override_colors/grid_minor = Color(1, 1, 1, 0.04)
-connection_lines_curvature = 7.0
-connection_lines_thickness = 5.0
+right_disconnects = true
+connection_lines_curvature = 0.0
+connection_lines_thickness = 3.0
+show_zoom_label = true

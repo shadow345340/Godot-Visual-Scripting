@@ -1,6 +1,5 @@
 @tool
 extends PopupPanel
-class_name SearchMenu
 
 signal node_selected(class_instance: Object, canvas_mouse_position: Vector2)
 
@@ -8,6 +7,7 @@ signal node_selected(class_instance: Object, canvas_mouse_position: Vector2)
 @onready var node_tree: Tree = $VBoxContainer/NodeTree
 
 var complete_catalog: Array[Object] = []
+var filtered_catalog: Array[Object] = []
 var canvas_click_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
@@ -24,7 +24,7 @@ func _on_about_to_popup() -> void:
 	search_box.text = ""
 	filter_catalog("")
 	await get_tree().process_frame
-	if search_box:
+	if search_box: 
 		search_box.grab_focus()
 
 func initialize_catalog(new_classes: Array[Object]) -> void:
@@ -35,25 +35,22 @@ func _on_search_text_changed(new_text: String) -> void:
 	filter_catalog(new_text)
 
 func filter_catalog(filter: String) -> void:
-	if not is_inside_tree() or node_tree == null:
+	if not is_inside_tree() or node_tree == null: 
 		return
 		
 	node_tree.clear()
 	var root = node_tree.create_item()
-	
 	var filter_min = filter.to_lower().strip_edges()
 	var categories: Dictionary = {}
 	
 	for node in complete_catalog:
-		if node == null:
+		if node == null: 
 			continue
-			
 		var name_min = node.get_node_name().to_lower()
 		var cat_min = node.get_category().to_lower()
 		
 		if filter_min == "" or filter_min in name_min or filter_min in cat_min:
 			var cat_name = node.get_category()
-			
 			if not categories.has(cat_name):
 				var cat_item = node_tree.create_item(root)
 				cat_item.set_text(0, cat_name)
@@ -68,7 +65,7 @@ func filter_catalog(filter: String) -> void:
 
 func _on_tree_item_selected() -> void:
 	var selected_item = node_tree.get_selected()
-	if selected_item == null:
+	if selected_item == null: 
 		return
 		
 	var node_data = selected_item.get_metadata(0)
